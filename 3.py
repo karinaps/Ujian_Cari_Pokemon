@@ -1,8 +1,7 @@
 # Cari Pokemon
 
-from flask import Flask, redirect, request, render_template, url_for
-import requests
-import json 
+from flask import Flask, request, send_from_directory, render_template, redirect, url_for
+import json, requests
 
 app = Flask(__name__)
 
@@ -17,7 +16,7 @@ def welcome():
 def berhasil():
     namapokemon = request.form['nama']
     urlpoke = 'https://pokeapi.co/api/v2/pokemon/'+namapokemon
-    pokemon = request.get(urlpoke)
+    pokemon = requests.get(urlpoke)
     
     if str(pokemon) == '<Response [404]>':
         return redirect('/error')
